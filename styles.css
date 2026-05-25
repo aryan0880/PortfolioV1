@@ -528,9 +528,9 @@ a {
 .frontSide,
 .frontSide::before {
 
-  background-image: url("/userAsset/aayush_flower.jpg");
+  background-image: url("/userAsset/profile-photo.jpg");
   background-size: cover;
-  background-position: center;
+  background-position: top center;
 
   /* background: linear-gradient(43deg, rgb(65, 88, 208) 0%, rgb(200, 80, 192) 46%, rgb(255, 204, 112) 100%); */
 }
@@ -727,24 +727,29 @@ a {
 }
 
 #project1 {
-  background-image: url(./projects/razorpay.jpg);
+  background-image: url(./projects/resqnet.png);
   right: 5%;
   margin-top: 5rem;
 }
 
 #project2 {
-  background-image: url(/projects/discord.jpg);
+  background-image: url(./projects/krishimitra.png);
   left: 5%;
 }
 
 #project3 {
-  background-image: url(/projects/Password\ generator.jpg);
+  background-image: url(./projects/self_driving.png);
   right: 5%;
 }
 
 #project4 {
-  background-image: url(/projects/Project4.png);
+  background-image: url(./projects/trackify.png);
   left: 5%;
+}
+
+#project5 {
+  background-image: url(./projects/staff_scheduling.png);
+  right: 5%;
 }
 
 .projectCard {
