@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aryan Sonawane - CV Resume</title>
+    <link rel="shortcut icon" href="./userAsset/small-c.gif" type="image/x-icon">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800;900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            background-color: #0a0a0a;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem 1rem;
+        }
+
+        .resume-actions {
+            width: 100%;
+            max-width: 800px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .back-btn, .print-btn {
+            padding: 0.6rem 1.5rem;
+            border-radius: 30px;
+            border: 2px solid rgb(238, 181, 245);
+            background-color: #110101;
+            color: #eacaf7d3;
+            font-family: 'Be Vietnam Pro', sans-serif;
+            font-weight: 600;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .back-btn:hover, .print-btn:hover {
+            background-color: rgba(123, 67, 151, 0.3);
+            letter-spacing: 1.5px;
+        }
+
+        .resume-container {
+            width: 100%;
+            max-width: 800px;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 0 60px rgba(123, 47, 247, 0.15), 0 0 120px rgba(200, 80, 192, 0.08);
+            overflow: hidden;
+        }
+
+        .resume-header {
+            text-align: center;
+            padding: 2.5rem 2rem 1.5rem;
+            border-bottom: 3px solid #222;
+        }
+
+        .resume-header h1 {
+            font-size: 2.4rem;
+            font-weight: 900;
+            color: #1a1a1a;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .resume-header .subtitle {
+            font-size: 1.1rem;
+            color: #555;
+            margin-top: 0.3rem;
+            font-weight: 400;
+        }
+
+        .contact-bar {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-bar a {
+            color: #444;
+            text-decoration: none;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: color 0.2s;
+        }
+
+        .contact-bar a:hover {
+            color: #7b2ff7;
+        }
+
+        .resume-body {
+            padding: 1.5rem 2.5rem 2.5rem;
+        }
+
+        .section {
+            margin-bottom: 1.8rem;
+        }
+
+        .section-title {
+            font-size: 1rem;
+            font-weight: 800;
+            color: #1a1a1a;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #ddd;
+            margin-bottom: 0.8rem;
+        }
+
+        .section p, .section li {
+            font-size: 0.9rem;
+            color: #444;
+            line-height: 1.7;
+        }
+
+        .section ul {
+            padding-left: 1.2rem;
+            margin-top: 0.4rem;
+        }
+
+        .section ul li {
+            margin-bottom: 0.3rem;
+        }
+
+        .education-timeline {
+            position: relative;
+            padding-left: 1.5rem;
+            border-left: 2px solid #ddd;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            margin-left: 0.5rem;
+        }
+
+        .education-item {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .education-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .education-item::before {
+            content: '';
+            position: absolute;
+            left: calc(-1.5rem - 7px);
+            top: 6px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #7b2ff7;
+            border: 2px solid #fff;
+            box-shadow: 0 0 0 2px #7b2ff7;
+            transition: all 0.3s ease;
+        }
+
+        .education-item:hover::before {
+            background-color: #fff;
+            box-shadow: 0 0 0 3px #7b2ff7;
+        }
+
+        .education-item .school {
+            font-weight: 700;
+            color: #222;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            margin-top: 0.1rem;
+        }
+
+        .education-item .degree {
+            font-weight: 600;
+            color: #333;
+            font-size: 0.95rem;
+        }
+
+        .education-item .details {
+            font-style: italic;
+            color: #666;
+            font-size: 0.85rem;
+            margin-top: 0.1rem;
+        }
+
+        .experience-item .role {
+            font-weight: 700;
+            color: #333;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .skill-category h4 {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #222;
+            margin-bottom: 0.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .skill-category h4::before {
+            content: "•";
+            color: #7b2ff7;
+            font-size: 1.2rem;
+        }
+
+        .skill-category p {
+            font-size: 0.82rem;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .github-link {
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 2px solid #ddd;
+        }
+
+        .github-link p {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #222;
+        }
+
+        .github-link a {
+            color: #2563eb;
+            text-decoration: underline;
+        }
+
+        .contact-footer {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 2px solid #ddd;
+        }
+
+        .contact-footer p {
+            font-size: 0.85rem;
+            color: #444;
+            margin-bottom: 0.3rem;
+        }
+
+        .contact-footer a {
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+        @media (max-width: 600px) {
+            .resume-header h1 { font-size: 1.6rem; }
+            .resume-body { padding: 1.2rem 1.2rem 2rem; }
+            .skills-grid { grid-template-columns: repeat(2, 1fr); }
+            .contact-bar { gap: 0.8rem; }
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .resume-actions { display: none; }
+            .resume-container {
+                box-shadow: none;
+                border-radius: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="resume-actions">
+        <a href="./index.html" class="back-btn">← BACK TO PORTFOLIO</a>
+        <button class="print-btn" onclick="window.print()">🖨️ PRINT / SAVE PDF</button>
+    </div>
+
+    <div class="resume-container">
+        <div class="resume-header">
+            <h1>Aryan Sonawane</h1>
+            <p class="subtitle">Full Stack Web Developer</p>
+            <div class="contact-bar">
+                <a href="tel:+917678004824">📞 +91 7678004824</a>
+                <a href="mailto:sonawanearyan2006@gmail.com">✉️ sonawanearyan2006@gmail.com</a>
+            </div>
+        </div>
+
+        <div class="resume-body">
+            <!-- About Me -->
+            <div class="section">
+                <h2 class="section-title">About Me</h2>
+                <p>
+                    Passionate and self-driven Full Stack Web Developer with a strong foundation in frontend and backend
+                    technologies. Skilled in building responsive, user-friendly web applications and continuously learning
+                    modern tools and frameworks. Focused on creating impactful digital experiences and solving real-world
+                    problems through clean and efficient code.
+                </p>
+            </div>
+
+            <!-- Education -->
+            <div class="section">
+                <h2 class="section-title">Education</h2>
+                <div class="education-timeline">
+                    <div class="education-item">
+                        <p class="degree">Bachelor of Engineering (Computer Engineering) | 2024 – 2028</p>
+                        <p class="school">Datta Meghe College of Engineering, Airoli, Navi Mumbai</p>
+                        <p class="details">CGPA: 8.2</p>
+                    </div>
+                    <div class="education-item">
+                        <p class="degree">12th Science | 2022 – 2024</p>
+                        <p class="school">Achievers Junior College</p>
+                        <p class="details">Percentage: 77%</p>
+                    </div>
+                    <div class="education-item">
+                        <p class="degree">10th SSC | 2011 – 2022</p>
+                        <p class="school">Rita Memorial School</p>
+                        <p class="details">Percentage: 88%</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Work Experience -->
+            <div class="section">
+                <h2 class="section-title">Work Experience</h2>
+                <div class="experience-item">
+                    <p class="role">Staff Scheduling System (Mini Project)</p>
+                    <ul>
+                        <li>Built a web-based system to manage staff scheduling efficiently</li>
+                        <li>Implemented backend logic and database integration</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Skills -->
+            <div class="section">
+                <h2 class="section-title">Skills</h2>
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h4>Frontend</h4>
+                        <p>HTML, CSS, JavaScript<br>React.js<br>Responsive Design</p>
+                    </div>
+                    <div class="skill-category">
+                        <h4>Backend</h4>
+                        <p>Node.js<br>Express.js</p>
+                    </div>
+                    <div class="skill-category">
+                        <h4>Database</h4>
+                        <p>MongoDB<br>MySQL</p>
+                    </div>
+                    <div class="skill-category">
+                        <h4>Tools</h4>
+                        <p>Git &amp; GitHub<br>Vercel Deployment<br>Figma (UI Design)</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GitHub -->
+            <div class="github-link">
+                <p>View my projects on GITHUB - <a href="https://github.com/aryan0880" target="_blank">https://github.com/aryan0880</a></p>
+            </div>
+
+            <!-- Contact Footer -->
+            <div class="contact-footer">
+                <p>• Phone: <a href="tel:+917678004824">+91 7678004824</a></p>
+                <p>• Email: <a href="mailto:sonawanearyan2006@gmail.com">sonawanearyan2006@gmail.com</a></p>
+                <p>• LinkedIn: <a href="https://linkedin.com/in/aryan-sonawane-4495082a7" target="_blank">aryan-sonawane-4495082a7</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

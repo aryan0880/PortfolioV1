@@ -1,10 +1,16 @@
-// Smooth scrolling for navigation links
+// Smooth scrolling for internal navigation links
 document.querySelectorAll('nav a').forEach(anchor => {
   anchor.addEventListener('click', function(e) {
-      e.preventDefault();
-      document.querySelector(this.getAttribute('href')).scrollIntoView({
-          behavior: 'smooth'
-      });
+      const href = this.getAttribute('href');
+      if (href && href.startsWith('#')) {
+          e.preventDefault();
+          const targetElement = document.querySelector(href);
+          if (targetElement) {
+              targetElement.scrollIntoView({
+                  behavior: 'smooth'
+              });
+          }
+      }
   });
 });
 
@@ -21,42 +27,38 @@ function showSlide(index) {
   });
 }
 
-prevBtn.addEventListener('click', () => {
-  currentIndex = (currentIndex === 0) ? slides.length - 1 : currentIndex - 1;
-  showSlide(currentIndex);
-});
+if (prevBtn) {
+  prevBtn.addEventListener('click', () => {
+    currentIndex = (currentIndex === 0) ? slides.length - 1 : currentIndex - 1;
+    showSlide(currentIndex);
+  });
+}
 
-nextBtn.addEventListener('click', () => {
-  currentIndex = (currentIndex === slides.length - 1) ? 0 : currentIndex + 1;
-  showSlide(currentIndex);
-});
+if (nextBtn) {
+  nextBtn.addEventListener('click', () => {
+    currentIndex = (currentIndex === slides.length - 1) ? 0 : currentIndex + 1;
+    showSlide(currentIndex);
+  });
+}
 
 // Initialize carousel
-showSlide(currentIndex);
-
-// Smooth scrolling for navigation links
-document.querySelectorAll('nav a').forEach(anchor => {
-  anchor.addEventListener('click', function(e) {
-      e.preventDefault();
-      document.querySelector(this.getAttribute('href')).scrollIntoView({
-          behavior: 'smooth'
-      });
-  });
-});
+if (slides.length > 0) showSlide(currentIndex);
 
 // Sticky Navigation Bar
 const header = document.querySelector('header');
-const sticky = header.offsetTop;
+if (header) {
+  const sticky = header.offsetTop;
 
-function handleScroll() {
-  if (window.pageYOffset > sticky) {
-      header.classList.add('sticky');
-  } else {
-      header.classList.remove('sticky');
+  function handleScroll() {
+    if (window.pageYOffset > sticky) {
+        header.classList.add('sticky');
+    } else {
+        header.classList.remove('sticky');
+    }
   }
-}
 
-window.addEventListener('scroll', handleScroll);
+  window.addEventListener('scroll', handleScroll);
+}
 
 // Back-to-top button
 const backToTopBtn = document.createElement('button');
@@ -92,3 +94,77 @@ function highlightNavLink() {
 }
 
 window.addEventListener('scroll', highlightNavLink);
+
+/* ============================================================
+   CUSTOM CURSOR — dot + lagging ring
+   ============================================================ */
+(function initCursor() {
+  const dot  = document.querySelector('.cursor-dot');
+  const ring = document.querySelector('.cursor-ring');
+  if (!dot || !ring) return;
+
+  // Only run on devices with a true pointer (not touch-only)
+  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+  let mouseX = 0, mouseY = 0;
+  let ringX  = 0, ringY  = 0;
+  let rafId;
+  let visible = false;
+
+  // Snap dot instantly; ring lerps behind
+  function tick() {
+    ringX += (mouseX - ringX) * 0.12;
+    ringY += (mouseY - ringY) * 0.12;
+
+    dot.style.left  = mouseX + 'px';
+    dot.style.top   = mouseY + 'px';
+    ring.style.left = ringX  + 'px';
+    ring.style.top  = ringY  + 'px';
+
+    rafId = requestAnimationFrame(tick);
+  }
+
+  window.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+
+    if (!visible) {
+      // Teleport ring to current position so it doesn't sweep from 0,0
+      ringX = mouseX;
+      ringY = mouseY;
+      dot.style.opacity  = '1';
+      ring.style.opacity = '1';
+      visible = true;
+      tick();
+    }
+  }, { passive: true });
+
+  // Hide when pointer leaves the window
+  document.addEventListener('mouseleave', () => {
+    dot.style.opacity  = '0';
+    ring.style.opacity = '0';
+  });
+  document.addEventListener('mouseenter', () => {
+    dot.style.opacity  = '1';
+    ring.style.opacity = '1';
+  });
+
+  // Hover state — expand ring & shift dot colour on interactive elements
+  const interactives = document.querySelectorAll(
+    'a, button, input, textarea, select, label, [role="button"], .projectCard, .myCard, .nav-icon'
+  );
+  interactives.forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      dot.classList.add('is-hovered');
+      ring.classList.add('is-hovered');
+    });
+    el.addEventListener('mouseleave', () => {
+      dot.classList.remove('is-hovered');
+      ring.classList.remove('is-hovered');
+    });
+  });
+
+  // Click state — quick squish
+  document.addEventListener('mousedown', () => ring.classList.add('is-clicking'));
+  document.addEventListener('mouseup',   () => ring.classList.remove('is-clicking'));
+})();

@@ -9,6 +9,96 @@
 
 
 
+/* ============================================================
+   CUSTOM CURSOR
+   ============================================================ */
+
+/* Hide default cursor on desktop only */
+@media (hover: hover) and (pointer: fine) {
+  *, *::before, *::after {
+    cursor: none !important;
+  }
+}
+
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  background: radial-gradient(circle, #e040fb, #7b2ff7);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 999999;
+  transform: translate(-50%, -50%);
+  transition: width 0.18s ease, height 0.18s ease, opacity 0.2s ease;
+  box-shadow: 0 0 12px 4px rgba(224, 64, 251, 0.6),
+              0 0 24px 8px rgba(123, 47, 247, 0.3);
+  opacity: 0;
+  will-change: transform;
+}
+
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  border: 2px solid rgba(224, 64, 251, 0.55);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 999998;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  will-change: transform;
+  transition:
+    width 0.35s cubic-bezier(0.25, 1, 0.5, 1),
+    height 0.35s cubic-bezier(0.25, 1, 0.5, 1),
+    border-color 0.3s ease,
+    background-color 0.3s ease,
+    opacity 0.2s ease;
+  backdrop-filter: blur(1px);
+  box-shadow: inset 0 0 8px rgba(224, 64, 251, 0.15);
+}
+
+/* Hover state: ring expands, fills subtly */
+.cursor-ring.is-hovered {
+  width: 58px;
+  height: 58px;
+  border-color: rgba(255, 204, 112, 0.75);
+  background-color: rgba(123, 47, 247, 0.12);
+  box-shadow: 0 0 18px rgba(255, 204, 112, 0.35),
+              inset 0 0 8px rgba(255, 204, 112, 0.1);
+}
+
+.cursor-dot.is-hovered {
+  width: 6px;
+  height: 6px;
+  background: radial-gradient(circle, #ffd700, #ff8c00);
+  box-shadow: 0 0 14px 5px rgba(255, 215, 0, 0.7),
+              0 0 28px 10px rgba(255, 140, 0, 0.3);
+}
+
+/* Click state: quick squish */
+.cursor-ring.is-clicking {
+  width: 32px;
+  height: 32px;
+  border-color: rgba(255, 80, 80, 0.9);
+  transition: width 0.1s ease, height 0.1s ease, border-color 0.1s ease;
+}
+
+/* Disable on touch / mobile */
+@media (hover: none), (pointer: coarse) {
+  .cursor-dot, .cursor-ring { display: none !important; }
+}
+
+
+
+
+:root {
+  --bgOrange: #e84949;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -16,19 +106,8 @@
   font-family: "Be Vietnam Pro", sans-serif;
   color: white;
   scroll-behavior: smooth;
-  /* user-select: none;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-user-drag: none; */
 }
 
-:root {
-  --bgOrange: #e84949;
-}
 
 .wrapper {
   width: 100%;
@@ -427,6 +506,34 @@ a {
 }
 
 /* aayush button ends*/
+
+/* Hero button group — side by side */
+.hero-btn-group {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+}
+
+.hero-btn-group .btn {
+  margin-top: 0;
+}
+
+.btn-resume {
+  border-color: rgba(123, 47, 247, 0.8) !important;
+  box-shadow: 0px 0px 100px 40px rgba(90, 20, 200, 0.18) !important;
+}
+
+.btn-resume::before {
+  background-image: linear-gradient(135deg, #4158d0, #7b2ff7) !important;
+}
+
+@media (max-width: 900px) {
+  .hero-btn-group {
+    justify-content: center;
+  }
+}
 
 
 
@@ -1706,6 +1813,140 @@ textarea {
 .copyright p {
   font-size: 0.7rem;
   color: gray;
+}
+
+/*=============================== Education Section =============================== */
+.educationSection {
+  background: linear-gradient(black 10%, rgb(11, 11, 11), rgb(15, 15, 15), rgb(5, 5, 5));
+  padding-bottom: 6rem;
+  position: relative;
+}
+
+.educationTitle {
+  padding-top: 6rem;
+  background: linear-gradient(43deg, rgb(65, 88, 208) 0%, rgb(200, 80, 192) 46%, rgb(255, 204, 112) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  width: fit-content;
+  margin: 0 auto 4rem auto;
+  font-weight: 700;
+  font-size: 80px;
+  text-align: center;
+  color: rgb(235, 196, 247);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-family: 'Catamaran', sans-serif;
+}
+
+.educationHomeTimeline {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  position: relative;
+  z-index: 5;
+}
+
+.educationHomeCard {
+  display: flex;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 1.5rem 2rem;
+  gap: 2rem;
+  align-items: center;
+  transition: all 0.4s ease;
+}
+
+.educationHomeCard:hover {
+  transform: scale(1.02);
+  border-color: rgba(192, 132, 252, 0.3);
+  box-shadow: 0 10px 30px rgba(192, 132, 252, 0.08);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.educationHomeYear {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #c084fc;
+  min-width: 120px;
+  border-right: 2px solid rgba(192, 132, 252, 0.3);
+  padding-right: 1.5rem;
+}
+
+.educationHomeContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  flex: 1;
+}
+
+.educationHomeContent h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+}
+
+.educationHomeContent .school {
+  font-size: 0.95rem;
+  color: #a1a1aa;
+  margin: 0;
+}
+
+.educationHomeContent .grade {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #34d399;
+  margin: 0;
+}
+
+.educationFadedText {
+  user-select: none;
+  font-size: 8.5em;
+  color: rgb(11, 11, 11);
+  bottom: 0;
+  right: 2%;
+  font-weight: bold;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.btn-education {
+  border-color: rgba(192, 132, 252, 0.8) !important;
+  box-shadow: 0px 0px 100px 40px rgba(192, 132, 252, 0.1) !important;
+  display: inline-flex !important;
+}
+
+.btn-education::before {
+  background-image: linear-gradient(135deg, #7b2ff7, #c084fc) !important;
+}
+
+@media (max-width: 768px) {
+  .educationTitle {
+    font-size: 40px;
+    padding-top: 4rem;
+    margin-bottom: 2rem;
+  }
+  .educationHomeCard {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.8rem;
+    padding: 1.2rem 1.5rem;
+  }
+  .educationHomeYear {
+    border-right: none;
+    border-bottom: 2px solid rgba(192, 132, 252, 0.3);
+    padding-right: 0;
+    padding-bottom: 0.3rem;
+    min-width: auto;
+    width: 100%;
+  }
+  .educationFadedText {
+    font-size: 4.5rem;
+  }
 }
 
 
