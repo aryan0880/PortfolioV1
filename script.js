@@ -168,3 +168,27 @@ window.addEventListener('scroll', highlightNavLink);
   document.addEventListener('mousedown', () => ring.classList.add('is-clicking'));
   document.addEventListener('mouseup',   () => ring.classList.remove('is-clicking'));
 })();
+
+// Intersection Observer for scroll-triggered section fade-in animations
+document.addEventListener('DOMContentLoaded', () => {
+  const sections = document.querySelectorAll('section');
+  
+  const observerOptions = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.1
+  };
+  
+  const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+      }
+    });
+  }, observerOptions);
+  
+  sections.forEach(section => {
+    observer.observe(section);
+  });
+});
+
